@@ -4,7 +4,7 @@ class Customer < ActiveRecord::Base
 
 
   def self.names
-    self.all.pluck(:name)
+    pluck(:name)
   end
 
   def order_coffee (coffee_title, price)
@@ -19,8 +19,8 @@ class Customer < ActiveRecord::Base
 
   def dislike_coffee(coffee_title)
     coffee = Coffee.find_by(title: coffee_title)
-    order = orders.find_by(coffee_id: coffee.id)
-    order.destroy
+    order = orders.where("coffee_id = ?", coffee.id).last.destroy
+    # orders.order(id: :desc).find_by(coffee_id: coffee.id)
     puts "#{self.name} has been refunded #{order.price}"
   end
 

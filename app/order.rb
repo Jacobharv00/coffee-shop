@@ -7,8 +7,8 @@ class Order < ActiveRecord::Base
   end
 
 
-  # def self.most_expensive
-  #   all.maximum(:price)
-  # end
+  def self.most_expensive
+    all.max_by{|order| order.price}
+  end
 
 end
