@@ -18,8 +18,9 @@ class Customer < ActiveRecord::Base
   end
 
   def dislike_coffee(coffee_title)
-    coffee = coffees.find_by(title: coffee_title)
-    order = orders.find_by(coffee_id: coffee.id).destroy
+    coffee = Coffee.find_by(title: coffee_title)
+    order = orders.find_by(coffee_id: coffee.id)
+    order.destroy
     puts "#{self.name} has been refunded #{order.price}"
   end
 
